@@ -16,6 +16,7 @@ const List = () => {
                         flexDirection: 'column',
                         height: '100vh',
                         background: "#F7F7F7",
+                        alignItems: "center",
                     }}
                 >
                     <AddButton />
