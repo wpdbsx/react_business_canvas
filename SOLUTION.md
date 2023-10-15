@@ -13,6 +13,9 @@
 ├─ README.md // 프로젝트 문서
 |─ SOLUTION.md // 구현 문서
 
+0-2. git Branch를 원래는 나뉘어서 main-dev-여러기능들로 쓰지만
+개인 과제이므로 main 하나의 Branch 사용
+
 1-1. material-ui로 디자인 구현
 npm install --save typed-design-system
 npm install --save @mui/material
@@ -49,6 +52,10 @@ yup 설치
 npm install yup --save
 npm install @hookform/resolvers --save
 
+npm install redux-persist -D // 새로고침 해도 store 데이터 남아있게 처리하는 라이브러리
+
+2-1 ResourceItem 수정 기능 개발
+
 트러블 슈팅
 
 1. import { TypedIcon } from "typed-design-system" 사용시 에러 발생
@@ -58,3 +65,10 @@ npm install @hookform/resolvers --save
    아이콘 사용시 에러 발생
    The `@emotion/core` package has been renamed to `@emotion/react`. Please import it like this `import { jsx } from '@emotion/react'`.
    npm install @emotion/core@10.1.1로 core 다운 그레이드 후 에러 해결
+2. ResizeObserver loop completed with undelivered notifications.
+   ResourceItem 의 Controller에서 에러 발생, defaultValues에 값을 넣고 크기를 조정하면 에러발생
+   해결방안
+   App.css에 항목 추가
+   iframe#webpack-dev-server-client-overlay {
+   display: none !important;
+   }

@@ -1,9 +1,8 @@
 import React from 'react';
 import Container from '@mui/material/Container';
 import { Box, MenuItem, MenuList, Paper, } from '@mui/material';
-
 import ResourceView from './pages/ResourceView';
-
+import "./App.css"
 const App: React.FC = () => {
 
   return (

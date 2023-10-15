@@ -1,9 +1,8 @@
-import { Box, Button, Grid, Paper } from "@mui/material"
-
-import ResourceItem from "../components/ResourceItem";
+import { Grid, Paper } from "@mui/material"
 import IframeViewer from "../components/IframeViewer";
 import AddButton from "../components/AddButton";
-const List = () => {
+import ResourceList from "../components/ResourceList";
+const ResourceView = () => {
 
 
     return (
@@ -20,11 +19,8 @@ const List = () => {
                     }}
                 >
                     <AddButton />
-
-
-                    <ResourceItem />
+                    <ResourceList />
                 </Paper>
-
             </Grid>
             <Grid item xs={12} md={10} lg={10}>
                 <Paper
@@ -38,12 +34,8 @@ const List = () => {
                     <IframeViewer />
                 </Paper>
             </Grid>
-            {/* Recent Deposits */}
-
-            {/* Recent Orders */}
-
         </Grid >
     )
 }
 
-export default List
+export default ResourceView;

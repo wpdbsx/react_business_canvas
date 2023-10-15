@@ -1,5 +1,4 @@
 import { applyMiddleware, compose, createStore } from "redux";
-
 import { composeWithDevTools } from "redux-devtools-extension";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "../sagas";
@@ -22,6 +21,7 @@ const configureStore = () => {
 
   // Redux-Saga 미들웨어에 Saga 함수 연결
   sagaaMiddleware.run(rootSaga)
+
   return store;
 };
 

@@ -57,6 +57,7 @@
   },
   "devDependencies": {
     "@types/react": "^18.2.28",
-    "@types/styled-components": "^5.1.28"
+    "@types/styled-components": "^5.1.28",
+    "redux-persist": "^6.0.0"
   }
 }
