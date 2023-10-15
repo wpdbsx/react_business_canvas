@@ -30,10 +30,21 @@ ResourceList.tsx (URL 이름수정, URL삭제, URL 목록 출력)
 IframeUrlViewer (URL클릭시 동영상 뷰어)
 ImageViewer (Image 클릭시 이미지 뷰어)
 
-1-3 리소스 유효성 검사
+1-3 react-hook-form 설치
 react-hook-form 설치
 npm install react-hook-form --save
 
+1-4 상태관리 라이브러리
+redux-saga vs zustand
+Zustand : 간단한 코드 ,쉽게 상태접근 가능 , 직관적인 API제공
+Redux-saga: 보일러플레이트 코드 발생, 상태 쉽게 예측 가능, 여러가지 기능 제공
+
+이번 프로젝트에서는 zustand가 더 맞다고 생각하지만
+복잡한 비동기(백엔드와 통신 등) 처리를 할 때 redux-saga가 더 적합하다고 생각해서 redux-saga로 진행하겠습니다.
+
+redux-saga 설치
+npm i redux react-redux @types/react-redux redux-saga --save
+npm i redux-devtools-extension --save
 yup 설치
 npm install yup --save
 npm install @hookform/resolvers --save

@@ -1,20 +1,20 @@
 import { Box, Button, Grid, Paper } from "@mui/material"
 
-import ResourceList from "../components/ResourceList";
+import ResourceItem from "../components/ResourceItem";
 import IframeViewer from "../components/IframeViewer";
 import AddButton from "../components/AddButton";
 const List = () => {
 
 
     return (
-        <Grid container >
-            <Grid item xs={12} md={10} lg={1.5}>
+        <Grid container spacing={1}>
+            <Grid item xs={12} md={10} lg={2}>
                 <Paper
                     sx={{
 
                         display: 'flex',
                         flexDirection: 'column',
-                        height: '100vh',
+                        height: '95vh',
                         background: "#F7F7F7",
                         alignItems: "center",
                     }}
@@ -22,16 +22,16 @@ const List = () => {
                     <AddButton />
 
 
-                    <ResourceList />
+                    <ResourceItem />
                 </Paper>
 
             </Grid>
-            <Grid item xs={12} md={10} lg={9}>
+            <Grid item xs={12} md={10} lg={10}>
                 <Paper
                     sx={{
                         display: 'flex',
                         flexDirection: 'column',
-                        height: '100vh',
+                        height: '95vh',
                         background: "#F7F7F7"
                     }}
                 >

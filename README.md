@@ -1,8 +1,16 @@
-# TypedFrontendEngineer-
+### TypedFrontendEngineer
 
 비즈니스 캔버스 과제
 
-#######
-npm start 로 실행
+### Tools
 
-#######
+- React
+- material-design
+- styled-components
+
+### Install
+
+```tsx
+1. npm install
+2. npm start
+```
