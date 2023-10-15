@@ -43,11 +43,13 @@ const ResourceItem: React.FC<ResourceItemType> = ({ content, postId }) => {
     const handleBlur = useCallback((e: any) => {
         const newContent = getValues("content");
 
-        if (newContent !== undefined) {  // undefined는 값이 변경된게 없다는 뜻입니다.
+        if (newContent !== undefined) {  // 값이 변경되었다면 
 
             dispatch({ type: PATCH_CONTENT, data: newContent, postId });
+            //값 dispatch
         }
-        setEditMode((prev) => false);
+        setEditMode(false);
+        //에디터 모드 종료
     }, [])
     return <Box
         sx={{
@@ -75,7 +77,7 @@ const ResourceItem: React.FC<ResourceItemType> = ({ content, postId }) => {
                                     inputProps={
                                         { disabled: !editMode, border: "0" }
                                     }
-                                    data-lpignore={true}
+
                                 />
                             </>
                         }

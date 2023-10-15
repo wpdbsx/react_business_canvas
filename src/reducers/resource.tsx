@@ -5,6 +5,7 @@ import { produce } from "immer";
 type postType = {
   content: string,
   postId: number,
+  status: "url" | "image"
 }
 type initialStateType = {
   mainPosts: postType[];
@@ -14,6 +15,7 @@ type actionType = {
   type: string;
   data: string;
   postId: number;
+  status: "url" | "image"
 }
 
 export type postState = ReturnType<typeof reducer>;
@@ -23,12 +25,14 @@ const initialState: initialStateType = {
   mainPosts: [{
     content:
       'https://www.robinwieruch.de/react-libraries/',
-    postId: 0
+    postId: 0,
+    status: "url",
   },
   {
     content:
       'https://typed.do/blog-kr/how-to-make-good-usability-product/',
-    postId: 1
+    postId: 1,
+    status: "url",
   }
   ],
 };
@@ -46,7 +50,7 @@ const reducer = (state = initialState, action: actionType) => {
     switch (action.type) {
       case ADD_CONTENT:
         const newContentId = draft.mainPosts.length
-        draft.mainPosts = [{ content: action.data, postId: newContentId }, ...draft.mainPosts]
+        draft.mainPosts = [{ content: action.data, postId: newContentId, status: action.status }, ...draft.mainPosts]
         break;
       case PATCH_CONTENT:
         const selectedContent = draft.mainPosts.find((v) => v.postId === action.postId);

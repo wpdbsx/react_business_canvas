@@ -54,7 +54,12 @@ npm install @hookform/resolvers --save
 
 npm install redux-persist -D // 새로고침 해도 store 데이터 남아있게 처리하는 라이브러리
 
-2-1 ResourceItem 수정 기능 개발
+2-1 url 추가 및 수정 기능 개발
+├─ 1.url 수정 기능 개발
+├─ 2-1. "Url 추가" 버튼 클릭시 reactDom.createPortal을 이용하여 상단에 입력 Form view
+├─ 문제 발생, 부모가 최상단이라 반응형으로 줄어들지 않음
+├─ 2-2. <div position="relative"> 태그 안에서 호출,
+├─ url 추가 태그 반응형으로 정상 작동
 
 트러블 슈팅
 

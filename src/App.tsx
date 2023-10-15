@@ -29,7 +29,7 @@ const App: React.FC = () => {
         }}
       >
 
-        <Container maxWidth={false} sx={{ mt: 2, mb: 2 }}>
+        <Container maxWidth={false} sx={{ mt: 2, mb: 2 }} id="modal-point">
 
           <ResourceView />
         </Container>
