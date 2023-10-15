@@ -54,12 +54,16 @@ npm install @hookform/resolvers --save
 
 npm install redux-persist -D // 새로고침 해도 store 데이터 남아있게 처리하는 라이브러리
 
-2-1 url 추가 및 수정 기능 개발
+2-1 url 기능 개발
 ├─ 1.url 수정 기능 개발
 ├─ 2-1. "Url 추가" 버튼 클릭시 reactDom.createPortal을 이용하여 상단에 입력 Form view
 ├─ 문제 발생, 부모가 최상단이라 반응형으로 줄어들지 않음
 ├─ 2-2. <div position="relative"> 태그 안에서 호출,
 ├─ url 추가 태그 반응형으로 정상 작동
+├─ 2-3 url https:// , http:// 포함되어야하는 validation 체크, yup을 통해서 개발
+├─ 2-4 URL 추가 버튼 click 후 focus 이벤트 추가
+├─ 2-5 URL 추가 버튼 blur 후 창 닫는 이벤트 추가
+├─ 2-6 youtube url은 embed url 정규식검사 로직 개발
 
 트러블 슈팅
 

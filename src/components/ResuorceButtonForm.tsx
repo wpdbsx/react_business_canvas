@@ -4,16 +4,12 @@ import InputResourceUrl from "./InputResourceUrl";
 
 const ResuorceButtonForm = () => {
     const [openInput, setOpenInput] = useState(false);
-    const [positionX, setPositionX] = useState(0);
-    const [positionY, setPositionY] = useState(0);
     const handleUrlButtonClick = useCallback((e: React.MouseEvent) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        setPositionX(rect.x)
-        setPositionY(rect.y);
         setOpenInput(true);
-
     }, [])
-
+    const handleInputClose = useCallback(() => {
+        setOpenInput(false);
+    }, [])
     return (
         <>
             <Box sx={{ width: '100%', background: 'white', textAlign: 'center' }}>
@@ -27,7 +23,7 @@ const ResuorceButtonForm = () => {
                 </Grid>
             </Box>
             <div style={{ position: "relative", width: "100%" }}>
-                {openInput && <InputResourceUrl positionX={positionX} positionY={positionY} />}
+                {openInput && <InputResourceUrl handleInputClose={handleInputClose} />}
             </div>
         </>
     )

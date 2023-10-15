@@ -4,6 +4,7 @@ import { produce } from "immer";
 
 type postType = {
   content: string,
+  viewName: string,
   postId: number,
   status: "url" | "image"
 }
@@ -25,12 +26,14 @@ const initialState: initialStateType = {
   mainPosts: [{
     content:
       'https://www.robinwieruch.de/react-libraries/',
+    viewName: 'https://www.robinwieruch.de/react-libraries/',
     postId: 0,
     status: "url",
   },
   {
     content:
       'https://typed.do/blog-kr/how-to-make-good-usability-product/',
+    viewName: 'https://typed.do/blog-kr/how-to-make-good-usability-product/',
     postId: 1,
     status: "url",
   }
@@ -50,12 +53,12 @@ const reducer = (state = initialState, action: actionType) => {
     switch (action.type) {
       case ADD_CONTENT:
         const newContentId = draft.mainPosts.length
-        draft.mainPosts = [{ content: action.data, postId: newContentId, status: action.status }, ...draft.mainPosts]
+        draft.mainPosts = [{ content: action.data, viewName: action.data, postId: newContentId, status: action.status }, ...draft.mainPosts]
         break;
       case PATCH_CONTENT:
         const selectedContent = draft.mainPosts.find((v) => v.postId === action.postId);
         if (selectedContent) {
-          selectedContent.content = action.data
+          selectedContent.viewName = action.data
         }
         break;
       default:

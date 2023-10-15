@@ -8,7 +8,7 @@ const ResourceList = () => {
 
     return <>
         {mainPosts.map((post) => {
-            return <ResourceItem key={post.postId} content={post.content} postId={post.postId} />
+            return <ResourceItem key={post.postId} viewName={post.viewName} postId={post.postId} />
         })}
 
     </>

@@ -8,16 +8,15 @@ import { resourceFormValidation } from "./yup";
 import { Controller } from 'react-hook-form';
 import { PATCH_CONTENT } from "../../reducers/resource";
 interface ResourceItemType {
-    content: string;
+    viewName: string;
     postId: number;
 }
 interface FormValue {
-    content: string;
+    viewName: string;
 }
 
-const ResourceItem: React.FC<ResourceItemType> = ({ content, postId }) => {
-    console.log("다 렌더링 되는거야?")
-    console.log("postId  ", postId)
+const ResourceItem: React.FC<ResourceItemType> = ({ viewName, postId }) => {
+
     const dispatch = useDispatch();
     const [editMode, setEditMode] = useState(false);
 
@@ -41,7 +40,7 @@ const ResourceItem: React.FC<ResourceItemType> = ({ content, postId }) => {
     }, [])
 
     const handleBlur = useCallback((e: any) => {
-        const newContent = getValues("content");
+        const newContent = getValues("viewName");
 
         if (newContent !== undefined) {  // 값이 변경되었다면 
 
@@ -63,7 +62,7 @@ const ResourceItem: React.FC<ResourceItemType> = ({ content, postId }) => {
             <Grid item xs={12} style={{ alignSelf: "flex-start" }}>
                 <Paper sx={{ m: 2 }}>
                     <Controller
-                        name="content"
+                        name="viewName"
                         control={control}
                         render={({ field }) => {
                             return <>
@@ -73,7 +72,7 @@ const ResourceItem: React.FC<ResourceItemType> = ({ content, postId }) => {
                                     fullWidth
                                     maxRows={2}
                                     onBlur={handleBlur}
-                                    defaultValue={content}
+                                    defaultValue={viewName}
                                     inputProps={
                                         { disabled: !editMode, border: "0" }
                                     }
