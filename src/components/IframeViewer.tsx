@@ -22,7 +22,11 @@ const IframeViewer: React.FC<{ selectedPost: postType }> = ({ selectedPost }) =>
 
     const dispatch = useDispatch();
     const handleClickClose = useCallback(() => {
-        dispatch({ type: SELECT_REMOVE_CONTENT })
+        try {
+            dispatch({ type: SELECT_REMOVE_CONTENT })
+        } catch (e) {
+            console.log(e)
+        }
     }, [])
 
     return <>
@@ -30,7 +34,6 @@ const IframeViewer: React.FC<{ selectedPost: postType }> = ({ selectedPost }) =>
             <Grid item xs={12}>
                 <Paper sx={{ height: '6vh' }}>
                     <StyledDiv >{selectedPost.content}</StyledDiv>
-
                     <StyledCloseDiv onClick={handleClickClose} id="12343">
                         <TypedIcon icon="close_19" size={24} />
                     </StyledCloseDiv>

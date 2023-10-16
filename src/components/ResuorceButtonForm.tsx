@@ -5,10 +5,18 @@ import InputResourceUrl from "./InputResourceUrl";
 const ResuorceButtonForm = () => {
     const [openInput, setOpenInput] = useState(false);
     const handleUrlButtonClick = useCallback((e: React.MouseEvent) => {
-        setOpenInput(true);
+        try {
+            setOpenInput(true);
+        } catch (e) {
+            console.log(e)
+        }
     }, [])
     const handleInputClose = useCallback(() => {
-        setOpenInput(false);
+        try {
+            setOpenInput(false);
+        } catch (e) {
+            console.log(e)
+        }
     }, [])
     return (
         <>
