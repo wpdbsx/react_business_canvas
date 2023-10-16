@@ -1,35 +1,33 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Controller, Noop, useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import styled from "styled-components";
-import { TextField } from "@mui/material";
+import { Paper, TextField } from "@mui/material";
 import { useDispatch } from 'react-redux';
-import { ADD_CONTENT } from "../../reducers/resource";
+import { ADD_POST_REQUEST } from "../../reducers/resource";
 import { resourceFormValidation } from "./yup";
+
 
 interface FormValue {
     content?: string;
 }
-export const ErrorMessageWrapper = styled.div`
+export const ErrorMessageWrapper = styled(Paper)`
   font-size: 14px;
   color: red;
+  background-color: white;
   position: absolute;
-  z-index: 1;
   top:10%;
   left: 50%;
-  transform: translate(-50%,400%);
+  transform: translate(-50%,460%);
   font-weight: bold;
+  
 `;
 
 const StyledTextField = styled(TextField)`
-background-color: white;
+
 box-shadow: 5px 5px 10px 0px gray;
 width: 88%;
 position: absolute;
-z-index: 1;
-top: 50%; 
-left: 50%;
-transform: translate(-50%, 10%);
 align-items: center;
 `;
 
@@ -37,8 +35,10 @@ interface AddResourceFormType {
     handleInputClose: () => void
 }
 const AddResourceForm: React.FC<AddResourceFormType> = ({ handleInputClose }) => {
-    const dispatch = useDispatch();
     const textFieldRef = useRef<HTMLTextAreaElement>(null);
+    const dispatch = useDispatch();
+
+
     const {
         formState: { errors },
         control,
@@ -66,7 +66,7 @@ const AddResourceForm: React.FC<AddResourceFormType> = ({ handleInputClose }) =>
             // https://www.youtu.be/
             // 위의 내용을 추출하지 않고 youtube 동영상 ID인 [a-zA-Z0-9_-]{11} 를 추출
             const match = url.match(regex);
-            console.log(match)
+
             if (match && match[1]) {
                 // 비디오 ID를 추출했다면 'https://www.youtube.com/embed/VIDEO_ID' 형태로 반환
                 const videoId = match[1];
@@ -94,7 +94,7 @@ const AddResourceForm: React.FC<AddResourceFormType> = ({ handleInputClose }) =>
                     newContent = convertToEmbedUrl(newContent)
                 }
 
-                dispatch({ type: ADD_CONTENT, data: newContent, status: 'url' });
+                dispatch({ type: ADD_POST_REQUEST, data: newContent, status: 'url' });
             }
             setValue('content', '');
             handleInputClose();
@@ -104,38 +104,48 @@ const AddResourceForm: React.FC<AddResourceFormType> = ({ handleInputClose }) =>
     }, [errors])
 
 
-    return <>
-        <Controller
-            name="content"
-            control={control}
-            render={({ field }) => {
-                return <>
-                    <StyledTextField
-                        {...field}
-                        inputRef={textFieldRef}
-                        multiline
-                        fullWidth
-                        maxRows={2}
-                        onBlur={handleBlur}
-                        InputProps={{
-                            style: {
-                                width: "88%",
-                                zIndex: 2,
-                                border: '1px solid #38A5E1',
-                                background: "#F7F7F7",
-                                marginBottom: 5,
-                                marginTop: 5
-                            },
-                        }}
-                    />
-                    {errors.content && <ErrorMessageWrapper>{errors.content?.message}</ErrorMessageWrapper>}
-                </>
-            }
-            }
-        />
+    return (
+        <div style={{ position: "relative", width: "100%", height: 0, zIndex: 10 }}>
+            <Paper sx={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -5%)",
+                width: "80%"
 
-    </>
+            }}>
+                <Controller
+                    name="content"
+                    control={control}
+                    render={({ field }) => {
+                        return <>
+                            <StyledTextField
+                                {...field}
+                                id="abcde"
+                                inputRef={textFieldRef}
+                                multiline
+                                fullWidth
+                                maxRows={2}
+                                onBlur={handleBlur}
+                                InputProps={{
+                                    style: {
+                                        width: "99%",
+                                        height: "5vh",
 
+                                        border: '1px solid #38A5E1',
+                                        background: "#F7F7F7",
+                                        margin: "2px"
+                                    },
+                                }}
+                            />
+                            {errors.content && <ErrorMessageWrapper><div style={{ color: "red" }}>{errors.content?.message}</div></ErrorMessageWrapper>}
+                        </>
+                    }
+                    }
+                />
+            </Paper>
+        </div>
+    )
 
 }
 

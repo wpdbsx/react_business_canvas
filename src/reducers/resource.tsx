@@ -7,10 +7,14 @@ export type postType = {
   viewName: string,
   postId: number,
   status?: "url" | "image"
+
 }
 type initialStateType = {
   mainPosts: postType[];
   selectedPost: postType | null;
+  addPostLoading: boolean,
+  addPostDone: boolean,
+  addPostError: string | null,
 };
 
 type actionType = {
@@ -19,6 +23,7 @@ type actionType = {
   postId?: number;
   status?: "url" | "image"
   post?: postType;
+  error: string | null
 }
 
 export type postState = ReturnType<typeof reducer>;
@@ -40,40 +45,54 @@ const initialState: initialStateType = {
     status: "url",
   }
   ],
-  selectedPost: null
+  selectedPost: null,
+  addPostLoading: false,
+  addPostDone: false,
+  addPostError: null,
 };
 
-export const ADD_CONTENT = "ADD_CONTENT";
-
-export const PATCH_CONTENT = "PATCH_CONTENT";
-
-export const SELECT_CONTENT = "SELECT_CONTENT";
-
-export const REMOVE_CONTENT = "REMOVE_CONTENT"
-
-export const SELECT_REMOVE_CONTENT = "SELECT_REMOVE_CONTENT";
+export const ADD_POST_REQUEST = "ADD_POST_REQUEST";
+export const ADD_POST_SUCCESS = "ADD_POST_SUCCESS";
+export const ADD_POST_FAILURE = "ADD_POST_FAILURE"
+export const PATCH_POST = "PATCH_POST";
+export const SELECT_POST = "SELECT_POST";
+export const REMOVE_POST = "REMOVE_POST"
+export const SELECT_REMOVE_POST = "SELECT_REMOVE_POST";
 
 const reducer = (state = initialState, action: actionType) => {
   return produce(state, (draft) => {
     let selectedPost // 선택된 콘텐츠
     switch (action.type) {
-      case ADD_CONTENT:
-        const newContentId = draft.mainPosts.length
-        draft.mainPosts = [{ content: action.data, viewName: action.data, postId: newContentId, status: action.status }, ...draft.mainPosts]
+      case ADD_POST_REQUEST:
+        draft.addPostLoading = true;
+        draft.addPostDone = false;
+        draft.addPostError = null;
         break;
-      case PATCH_CONTENT:
+      case ADD_POST_SUCCESS:
+        draft.addPostLoading = false;
+        draft.addPostDone = true;
+        draft.addPostError = null;
+        const newPostId = draft.mainPosts.length
+        draft.mainPosts = [{ content: action.data, viewName: action.data, postId: newPostId, status: action.status }, ...draft.mainPosts]
+        break;
+      case ADD_POST_FAILURE:
+        draft.addPostLoading = false;
+        draft.addPostDone = false;
+        draft.addPostError = action.error;
+        break;
+      case PATCH_POST:
         selectedPost = draft.mainPosts.find((v) => v.postId === action.postId);
         if (selectedPost) {
           selectedPost.viewName = action.data
         }
         break;
-      case SELECT_CONTENT:
+      case SELECT_POST:
         draft.selectedPost = action.post as postType
         break;
-      case SELECT_REMOVE_CONTENT:
+      case SELECT_REMOVE_POST:
         draft.selectedPost = null
         break;
-      case REMOVE_CONTENT:
+      case REMOVE_POST:
         draft.mainPosts = draft.mainPosts.filter((v) => v.postId !== action.postId);
         if (draft.selectedPost?.postId === action.postId) {
           draft.selectedPost = null;

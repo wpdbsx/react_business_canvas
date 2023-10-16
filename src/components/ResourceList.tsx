@@ -1,6 +1,7 @@
+import { useSelector } from 'react-redux';
 import { RootState } from "../reducers";
 import ResourceItem from "./ResourceItem";
-import { useSelector } from 'react-redux';
+
 
 const ResourceList = () => {
 
@@ -11,6 +12,10 @@ const ResourceList = () => {
             return <ResourceItem key={post.postId} content={post.content} viewName={post.viewName} postId={post.postId} />
         })}
 
+
+        {/* {isSuccess && <ToastAlert text="성공하셨습니다!" />}
+
+        {isFailure && <ToastAlert text="실패하셨습니다..!" />} */}
     </>
 
 }

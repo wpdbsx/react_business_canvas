@@ -1,13 +1,14 @@
 import { Box, Grid, Paper, TextField } from "@mui/material";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { TypedIcon } from "typed-design-system"
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { resourceFormValidation } from "./yup";
 import { Controller } from 'react-hook-form';
-import { PATCH_CONTENT, REMOVE_CONTENT, SELECT_CONTENT } from "../../reducers/resource";
+import { PATCH_POST, REMOVE_POST, SELECT_POST } from "../../reducers/resource";
 import styled from "styled-components";
+import { RootState } from "../../reducers";
 interface ResourceItemType {
     content: string;
     viewName: string;
@@ -17,6 +18,7 @@ interface FormValue {
     viewName: string;
 }
 const StyledMouseOverDiv = styled.div`
+padding-bottom: 15px;
    &:hover {
         background-color: lightblue;
         color: darkblue;
@@ -28,6 +30,7 @@ const ResourceItem: React.FC<ResourceItemType> = ({ content, viewName, postId })
     const dispatch = useDispatch();
     const [editMode, setEditMode] = useState(false);
     const textFieldRef = useRef<HTMLTextAreaElement>(null);
+    const { selectedPost } = useSelector((state: RootState) => state.resource);
     const {
         formState: { errors },
         control,
@@ -69,7 +72,7 @@ const ResourceItem: React.FC<ResourceItemType> = ({ content, viewName, postId })
     const handleRemove = useCallback(() => {
         try {
             dispatch({
-                type: REMOVE_CONTENT,
+                type: REMOVE_POST,
                 postId: postId
             })
         } catch (e) {
@@ -83,7 +86,7 @@ const ResourceItem: React.FC<ResourceItemType> = ({ content, viewName, postId })
 
             if (newContent !== undefined) {
                 // 값이 변경되었다면  
-                dispatch({ type: PATCH_CONTENT, data: newContent, postId });
+                dispatch({ type: PATCH_POST, data: newContent, postId });
 
             }
             setEditMode(false);
@@ -94,13 +97,13 @@ const ResourceItem: React.FC<ResourceItemType> = ({ content, viewName, postId })
     }, [])
     const handleFocus = useCallback((e: any) => {
         try {
-            if (!editMode) {
-                dispatch({ type: SELECT_CONTENT, post: { content, postId, viewName, status: "url" } });
+            if (!editMode && postId !== selectedPost?.postId) {
+                dispatch({ type: SELECT_POST, post: { content, postId, viewName, status: "url" } });
             }
         } catch (e) {
             console.log(e)
         }
-    }, [editMode])
+    }, [editMode, selectedPost])
     return <Box
         sx={{
             mt: 2,
@@ -113,12 +116,11 @@ const ResourceItem: React.FC<ResourceItemType> = ({ content, viewName, postId })
 
 
     >
-        <Grid container spacing={2} style={{ flexDirection: "row-reverse" }} >
-            <Grid item xs={12} style={{ alignSelf: "flex-start" }} >
+        <Grid container style={{ flexDirection: "row-reverse" }} >
+            <Grid item xs={12} >
                 <Paper sx={{ m: 2 }}  >
                     <Controller
                         name="viewName"
-
                         control={control}
                         render={({ field }) => {
                             return <>
@@ -132,7 +134,10 @@ const ResourceItem: React.FC<ResourceItemType> = ({ content, viewName, postId })
                                     onFocus={handleFocus}
                                     defaultValue={viewName}
                                     inputProps={
-                                        { readOnly: !editMode, border: "0" }
+                                        {
+                                            readOnly: !editMode,
+
+                                        }
                                     }
 
                                 />
