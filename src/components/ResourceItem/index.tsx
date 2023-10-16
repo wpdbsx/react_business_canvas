@@ -97,7 +97,7 @@ const ResourceItem: React.FC<ResourceItemType> = ({ content, viewName, postId })
     }, [])
     const handleFocus = useCallback((e: any) => {
         try {
-            if (!editMode && postId !== selectedPost?.postId) {
+            if (!editMode && content !== selectedPost?.content) {
                 dispatch({ type: SELECT_POST, post: { content, postId, viewName, status: "url" } });
             }
         } catch (e) {

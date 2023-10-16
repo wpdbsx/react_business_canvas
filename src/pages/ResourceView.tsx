@@ -58,6 +58,7 @@ const ResourceView = () => {
                 </Grid>
                 {addPostDone && toastVisible && <ToastAlert text="성공하셨습니다." bgColor="#4D99DE" textColor="white" />}
                 {addPostError && toastVisible && <ToastAlert text={addPostError} bgColor="#EA4343" textColor="white" />}
+                {addPostLoading && <CircularProgress sx={{ position: "absolute", top: "50%", left: "12.5%" }} />}
             </Grid>
             <Grid item xs={12} md={12} lg={9} >
                 <Paper
@@ -70,7 +71,7 @@ const ResourceView = () => {
                     {/* <InputResourceImage /> */}
                 </Paper>
             </Grid>
-            {addPostLoading && <CircularProgress />}
+
 
         </Grid >
     )
