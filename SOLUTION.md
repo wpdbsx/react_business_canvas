@@ -65,6 +65,12 @@ npm install redux-persist -D // 새로고침 해도 store 데이터 남아있게
 ├─ 2-5 URL 추가 버튼 blur 후 창 닫는 이벤트 추가
 ├─ 2-6 youtube url은 embed url 정규식검사 로직 개발
 
+2-2 iFrame 기능 개발
+├─ 1.ResourceList Item 수정 버튼 클릭시 focus 처리
+├─ 2. Iframe 개발
+├─ 2-1 Url창 view 개발 및 닫기 버튼 구현
+├─ 2-2 iFrame viewer 구현
+
 트러블 슈팅
 
 1. import { TypedIcon } from "typed-design-system" 사용시 에러 발생

@@ -6,7 +6,7 @@ import "./App.css"
 const App: React.FC = () => {
 
   return (
-    <Box sx={{ display: 'flex', height: "100%", overflow: "hidden" }}>
+    <Box sx={{ display: 'flex', height: "100%", overflow: "hidden", minWidth: "500px" }}>
       <Paper sx={{
         backgroundColor: (theme) => theme.palette.grey[300],
         height: '100%',

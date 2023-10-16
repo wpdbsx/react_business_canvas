@@ -1,10 +1,10 @@
 import ReactDOM from 'react-dom/client';
 import { Provider } from "react-redux";
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import configureStore from './store/configureStore';
-import { persistStore } from "redux-persist";
-import { PersistGate } from "redux-persist/integration/react";
 <link
   rel="stylesheet"
   href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"

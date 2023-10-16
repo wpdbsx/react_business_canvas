@@ -49,6 +49,7 @@ const AddResourceForm: React.FC<AddResourceFormType> = ({ handleInputClose }) =>
         mode: "onChange",
         //onChange 될때마다 입력 필드의 유효성 체크
     });
+
     useEffect(() => {
         textFieldRef?.current?.focus();
     }, [])
@@ -74,7 +75,7 @@ const AddResourceForm: React.FC<AddResourceFormType> = ({ handleInputClose }) =>
         // 일치하는 비디오 ID를 찾지 못했을 경우 원래 URL 그대로 반환
         return url;
     }, [])
-    const handleBlur = useCallback((e: any) => {
+    const handleBlur = useCallback(() => {
 
         let newContent = getValues("content");
 

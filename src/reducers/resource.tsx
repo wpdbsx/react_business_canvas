@@ -2,7 +2,7 @@
 import { produce } from "immer";
 // import { faker } from "@faker-js/faker";
 
-type postType = {
+export type postType = {
   content: string,
   viewName: string,
   postId: number,
@@ -10,6 +10,7 @@ type postType = {
 }
 type initialStateType = {
   mainPosts: postType[];
+  selectedPost: postType | null;
 };
 
 type actionType = {
@@ -17,6 +18,7 @@ type actionType = {
   data: string;
   postId: number;
   status: "url" | "image"
+  post: postType;
 }
 
 export type postState = ReturnType<typeof reducer>;
@@ -38,14 +40,16 @@ const initialState: initialStateType = {
     status: "url",
   }
   ],
+  selectedPost: null
 };
 
 export const ADD_CONTENT = "ADD_CONTENT";
 
-
 export const PATCH_CONTENT = "PATCH_CONTENT";
 
+export const SELECT_CONTENT = "SELECT_CONTENT";
 
+export const SELECT_REMOVE_CONTENT = "SELECT_REMOVE_CONTENT";
 
 const reducer = (state = initialState, action: actionType) => {
   return produce(state, (draft) => {
@@ -60,6 +64,12 @@ const reducer = (state = initialState, action: actionType) => {
         if (selectedContent) {
           selectedContent.viewName = action.data
         }
+        break;
+      case SELECT_CONTENT:
+        draft.selectedPost = action.post
+        break;
+      case SELECT_REMOVE_CONTENT:
+        draft.selectedPost = null
         break;
       default:
         break;
