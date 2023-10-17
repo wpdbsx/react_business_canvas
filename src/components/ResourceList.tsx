@@ -11,11 +11,6 @@ const ResourceList = () => {
         {mainPosts.map((post) => {
             return <ResourceItem key={post.postId} post={post} />
         })}
-
-
-        {/* {isSuccess && <ToastAlert text="성공하셨습니다!" />}
-
-        {isFailure && <ToastAlert text="실패하셨습니다..!" />} */}
     </div>
 
 }

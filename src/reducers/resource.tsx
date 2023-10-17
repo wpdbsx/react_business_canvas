@@ -1,7 +1,6 @@
 
 import { produce } from "immer";
 import { PostType } from "../types/types";
-// import { faker } from "@faker-js/faker";
 
 
 type InitialStateType = {
@@ -68,7 +67,7 @@ export const REMOVE_POST = "REMOVE_POST"
 export const SELECT_REMOVE_POST = "SELECT_REMOVE_POST";
 
 export const RESET_URL_STATUS = "RESET_URL_STATUS"
-export const RESET_IMAGE_STATUS = "RESET_URL_STATUS"
+export const RESET_IMAGE_STATUS = "RESET_IMAGE_STATUS"
 
 const reducer = (state = initialState, action: ActionType) => {
   return produce(state, (draft) => {

@@ -1,8 +1,6 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Controller, Noop, useForm } from "react-hook-form";
+import React, { useCallback, useEffect, useRef } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
-import styled from "styled-components";
-import { Paper, TextField } from "@mui/material";
 import { useDispatch } from 'react-redux';
 import { ADD_URL_REQUEST } from "../../reducers/resource";
 import { resourceUrlValidation } from "./yup";
@@ -19,8 +17,6 @@ interface AddResourceFormType {
 const AddResourceForm: React.FC<AddResourceFormType> = ({ handleInputClose }) => {
     const textFieldRef = useRef<HTMLTextAreaElement>(null);
     const dispatch = useDispatch();
-
-
     const {
         formState: { errors },
         control,
@@ -94,19 +90,18 @@ const AddResourceForm: React.FC<AddResourceFormType> = ({ handleInputClose }) =>
 
     return (
         <div style={{ position: "relative", width: "100%", height: 0, zIndex: 10 }}>
-            <Paper sx={{
+            <div style={{
                 position: "absolute",
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%,115%)",
                 width: "260px",
                 height: "40px"
-
             }}>
                 <Controller
                     name="content"
                     control={control}
-                    render={({ field, fieldState }) => {
+                    render={({ field }) => {
                         return <>
                             <StyledTextField
                                 {...field}
@@ -118,7 +113,7 @@ const AddResourceForm: React.FC<AddResourceFormType> = ({ handleInputClose }) =>
                     }
                 />
                 {errors.content && <ErrorMessageWrapper><div style={{ color: "red" }}>{errors.content?.message}</div></ErrorMessageWrapper>}
-            </Paper>
+            </div>
 
         </div>
     )

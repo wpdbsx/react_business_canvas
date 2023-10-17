@@ -19,8 +19,6 @@ top: 750px;
 z-index: 2;
 align-items: center;
 padding: 0 auto;
-
-/* position: absolute */
 `
 const StyleAlertTextDiv = styled.div<AlertTextDivProps>`
     background-color: ${props => props.$bgColor};

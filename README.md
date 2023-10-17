@@ -7,6 +7,11 @@
 - React
 - material-design
 - styled-components
+- TypeScript
+- Redux-saga
+- Firebase Storage
+- mui-file-input
+- react-hook-form
 
 ### Install
 

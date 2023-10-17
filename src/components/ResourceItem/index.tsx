@@ -1,13 +1,12 @@
-import { Box, Grid, Paper, TextField } from "@mui/material";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { TypedIcon } from "typed-design-system"
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { resourceFormValidation } from "./yup";
 import { Controller } from 'react-hook-form';
-import { PATCH_POST, REMOVE_POST, SELECT_POST } from "../../reducers/resource";
 import styled from "styled-components";
+import { PATCH_POST, REMOVE_POST, SELECT_POST } from "../../reducers/resource";
+import { resourceFormValidation } from "./yup";
 import { RootState } from "../../reducers";
 import { StyledDiv } from "../../styles/styles";
 import { PostType } from "../../types/types";
@@ -18,6 +17,7 @@ interface FormValue {
 const StyledMouseOverDiv = styled.div`
   float:right;
   margin-top:3px;
+  cursor:pointer;
    &:hover {
         background-color: lightblue;
         color: darkblue;
@@ -42,7 +42,6 @@ const ResourceItem: React.FC<{ post: PostType }> = ({ post }) => {
     const textFieldRef = useRef<HTMLTextAreaElement>(null);
     const { selectedPost } = useSelector((state: RootState) => state.resource);
     const {
-        formState: { errors },
         control,
         getValues
     } = useForm<FormValue>({
@@ -55,10 +54,14 @@ const ResourceItem: React.FC<{ post: PostType }> = ({ post }) => {
     });
 
     useEffect(() => {
-        if (editMode) {
-            setCursorAtEnd();
-
+        try {
+            if (editMode) {
+                setCursorAtEnd();
+            }
+        } catch (e) {
+            console.log(e)
         }
+
     }, [editMode]);
 
     const setCursorAtEnd = useCallback(() => {
@@ -108,6 +111,7 @@ const ResourceItem: React.FC<{ post: PostType }> = ({ post }) => {
             console.log(e)
         }
     }, [])
+
     const handleClick = useCallback(() => {
         try {
             if (!editMode && post.content !== selectedPost?.content) {
@@ -118,8 +122,8 @@ const ResourceItem: React.FC<{ post: PostType }> = ({ post }) => {
         }
     }, [editMode, selectedPost])
 
-    return <Box
-        sx={{
+    return <div
+        style={{
             width: "260px",
             height: "90px",
             backgroundColor: 'white',
@@ -136,14 +140,11 @@ const ResourceItem: React.FC<{ post: PostType }> = ({ post }) => {
                     return <>
                         <StyledTextField
                             {...field}
-
                             ref={textFieldRef}
                             onBlur={handleBlur}
                             // onFocus={handleFocus}
                             onClick={handleClick}
-
                         />
-
                     </>
                 }
                 }
@@ -155,16 +156,13 @@ const ResourceItem: React.FC<{ post: PostType }> = ({ post }) => {
                 {post.viewName}
             </StyledDiv>
         }
-
         <StyledMouseOverDiv style={{ marginRight: "8px" }} onClick={handleRemove} >
             <TypedIcon icon="trash_19" size={19} />
         </StyledMouseOverDiv>
         <StyledMouseOverDiv style={{ marginRight: "12px" }} onClick={handleEdit}>
             <TypedIcon icon="edit_19" size={19} />
         </StyledMouseOverDiv>
-
-
-    </Box >
+    </div >
 }
 
 export default React.memo(ResourceItem); 

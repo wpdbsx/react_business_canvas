@@ -3,7 +3,6 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { MuiFileInput } from 'mui-file-input'
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { Paper } from '@mui/material';
 import { StyledButton } from "../../styles/styles";
 import { ADD_IMAGE_REQUEST } from "../../reducers/resource";
 
@@ -19,8 +18,6 @@ interface FormValue {
 const InputResourceImage: React.FC<AddResourceFormType> = ({ handleInputClose }) => {
 
     const dispatch = useDispatch();
-
-
     const {
         control,
         handleSubmit,
@@ -31,9 +28,6 @@ const InputResourceImage: React.FC<AddResourceFormType> = ({ handleInputClose })
             images: []
         }
     });
-
-
-
 
     const onSubmitHandler: SubmitHandler<FormValue> = (data) => {
 
@@ -50,13 +44,13 @@ const InputResourceImage: React.FC<AddResourceFormType> = ({ handleInputClose })
 
     return <>
         <div style={{ position: "relative", width: "100%", height: 0, zIndex: 10 }}>
-            <Paper sx={{
+            <div style={{
                 position: "absolute",
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%, 60%)",
                 width: "265px",
-
+                background: "white"
             }}>
                 <form onSubmit={handleSubmit(onSubmitHandler)}>
                     <Controller
@@ -89,17 +83,15 @@ const InputResourceImage: React.FC<AddResourceFormType> = ({ handleInputClose })
                                 />
                             </>
                         }} />
-                    <div>
-                        <StyledButton $width={'50px'} $height={'10px'} onClick={handleInputClose} variant="outlined" sx={{ float: "right" }}>
-                            닫기
-                        </StyledButton>
-                        <StyledButton $width={'50px'} $height={'10px'} type="submit" variant="outlined" sx={{ float: "right" }}>
-                            추가
-                        </StyledButton>
 
-                    </div >
+                    <StyledButton $width={'50px'} $height={'10px'} onClick={handleInputClose} variant="outlined" sx={{ float: "right" }}>
+                        닫기
+                    </StyledButton>
+                    <StyledButton $width={'50px'} $height={'10px'} type="submit" variant="outlined" sx={{ float: "right" }}>
+                        추가
+                    </StyledButton>
                 </form >
-            </Paper >
+            </div >
         </div >
     </>
 }

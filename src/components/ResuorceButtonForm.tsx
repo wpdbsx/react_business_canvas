@@ -1,7 +1,5 @@
-import { Box, Button, Grid, Input } from "@mui/material";
 import { useCallback, useState } from "react";
 import InputResourceUrl from "./InputResourceUrl";
-import styled from "styled-components";
 import InputResourceImage from "./InputResourceImage";
 import { StyledButton } from "../styles/styles";
 
@@ -40,14 +38,9 @@ const ResuorceButtonForm = () => {
             console.log(e)
         }
     }, [])
-    const handleFileUpload = () => {
-
-        console.log("test")
-    }
     return (
         <>
-            <Box sx={{ background: 'white' }}>
-
+            <div style={{ background: 'white' }}>
                 <div>
                     <StyledButton $width={'125px'} $height={'30px'} sx={{ float: "left", margin: "10px" }} onClick={handleUrlOpen}>
                         URL 추가
@@ -56,13 +49,11 @@ const ResuorceButtonForm = () => {
                         이미지 추가
                     </StyledButton>
                 </div>
-
-            </Box>
+            </div>
             {openUrlInput && <InputResourceUrl handleInputClose={handleUrlClose} />}
             {openImageInput && <InputResourceImage handleInputClose={handleImageClose} />}
         </>
     )
-
 }
 
 export default ResuorceButtonForm;

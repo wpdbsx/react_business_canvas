@@ -6,5 +6,4 @@ export const resourceUrlValidation = yup.object({
         .string()
         .required()
         .url('URL 형식 에러')
-
 });

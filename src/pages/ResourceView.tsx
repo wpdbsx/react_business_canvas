@@ -26,28 +26,25 @@ const ResourceView = () => {
                 </div >
                 <div
                     style={{
-
-                        display: 'flex',
-                        flexDirection: 'column',
                         background: "#F7F7F7",
                         alignItems: "center",
                         overflow: "auto",
                         width: "280px",
-                        height: "750px",
-
-
+                        height: "749px",
+                        marginTop: "1px",
+                        boxShadow: "0px 2px 5px 0px #0000001A"
                     }}
                 >
                     <ResourceList />
                 </div>
             </div>
-            <div style={{ width: "1px" }}></div>
+
             <div
                 style={{
                     background: "#F7F7F7",
                     width: "919px",
-                    height: "800px"
-
+                    height: "800px",
+                    marginLeft: "1px"
                 }}
             >
                 {selectedPost?.content && <IframeViewer selectedPost={selectedPost} />}

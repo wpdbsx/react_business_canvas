@@ -5,8 +5,6 @@ type StyleChangeType = {
   $height?: string; // textColor 속성을 추가
 }
 
-
-
 export const StyledButton = styled(Button) <StyleChangeType>`
 width:${props => props.$width};
 height:${props => props.$height};

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { CircularProgress, Grid, Paper } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 import styled from 'styled-components';
 import { TypedIcon } from "typed-design-system";
 import { useDispatch } from "react-redux";
@@ -45,24 +45,22 @@ const IframeViewer: React.FC<{ selectedPost: PostType }> = ({ selectedPost }) =>
         }
     }, [])
 
-    console.log(selectedPost)
     return <>
-        <Grid container spacing={0.1}>
-            <Grid item xs={12}>
-                <Paper sx={{ height: '50px', display: "flex", justifyContent: "space-between" }}>
-                    <StyledUrlDiv $height="16px" $width="539px" style={{}}>{selectedPost.content}</StyledUrlDiv>
-                    <StyledCloseDiv onClick={handleClickClose}>
-                        <TypedIcon icon="close_19" size={19} />
-                    </StyledCloseDiv>
-                </Paper>
-            </Grid>
-            <Grid item xs={12} sx={{ height: '750px', textAlign: "center" }}>
-                {loading && <CircularProgress sx={{ position: "absolute", top: "50%", left: "60%" }} />}
-                {selectedPost.status === "url" ? <iframe id={"my-iframe"} src={selectedPost.content} width={"100%"} height={"100%"} />
-                    : <></>}
-            </Grid>
-        </Grid >
+        <div style={{
+            height: '50px', display: "flex", justifyContent: "space-between", background: "white",
+            boxShadow: "0px 2px 5px 0px #0000001A"
+        }}>
+            <StyledUrlDiv $height="16px" $width="539px" style={{}}>{selectedPost.content}</StyledUrlDiv>
+            <StyledCloseDiv onClick={handleClickClose}>
+                <TypedIcon icon="close_19" size={19} />
+            </StyledCloseDiv>
+        </div>
 
+        <div style={{ height: '749px', textAlign: "center", marginTop: '1px' }}>
+            {loading && <CircularProgress sx={{ position: "absolute", top: "40%", left: "50%" }} />}
+            {selectedPost.status === "url" ? <iframe id={"my-iframe"} src={selectedPost.content} width={"99%"} height={"99%"} />
+                : <></>}
+        </div>
     </>;
 }
 

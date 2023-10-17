@@ -4,11 +4,9 @@ import {
     delay,
     fork,
     put,
-    takeEvery,
-
+    takeEvery
 } from "redux-saga/effects";
-
-import { ADD_URL_FAILURE, ADD_URL_SUCCESS, ADD_URL_REQUEST, ADD_IMAGE_REQUEST, RESET_URL_STATUS, ADD_IMAGE_FAILURE, ADD_IMAGE_SUCCESS } from "../reducers/resource";
+import { ADD_URL_FAILURE, ADD_URL_SUCCESS, ADD_URL_REQUEST, ADD_IMAGE_REQUEST, RESET_URL_STATUS, ADD_IMAGE_FAILURE, ADD_IMAGE_SUCCESS, RESET_IMAGE_STATUS } from "../reducers/resource";
 import upload from "../apis/upload";
 
 
@@ -55,7 +53,7 @@ function* addImage(action: { type: string, data: File, status: 'url' | 'image' }
             yield put({ type: ADD_IMAGE_FAILURE, error: "실패하셨습니다!" });
         }
         yield delay(2000);   // 토스트 팝업 설정 시간
-        yield put({ type: RESET_URL_STATUS });
+        yield put({ type: RESET_IMAGE_STATUS });
 
     } catch (err) {
         console.log(err)
