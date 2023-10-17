@@ -1,38 +1,66 @@
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Button, Grid, Input } from "@mui/material";
 import { useCallback, useState } from "react";
 import InputResourceUrl from "./InputResourceUrl";
+import styled from "styled-components";
+import InputResourceImage from "./InputResourceImage";
+import { StyledButton } from "../styles/styles";
 
 
 const ResuorceButtonForm = () => {
-    const [openInput, setOpenInput] = useState(false);
+    const [openUrlInput, setOpenUrlInput] = useState(false);
 
-    const handleUrlButtonClick = useCallback((e: React.MouseEvent) => {
+    const [openImageInput, setOpenImageInput] = useState(false);
+
+    const handleUrlOpen = useCallback((e: React.MouseEvent) => {
         try {
-            setOpenInput(true);
+            setOpenUrlInput(true);
         } catch (e) {
             console.log(e)
         }
     }, [])
-    const handleInputClose = useCallback(() => {
+    const handleUrlClose = useCallback(() => {
         try {
-            setOpenInput(false);
+            setOpenUrlInput(false);
         } catch (e) {
             console.log(e)
         }
     }, [])
+    const handleImageOpen = useCallback((e: React.MouseEvent) => {
+        try {
+            setOpenImageInput(true);
+        } catch (e) {
+            console.log(e)
+        }
+    }, [])
+
+    const handleImageClose = useCallback(() => {
+        try {
+            setOpenImageInput(false);
+        } catch (e) {
+            console.log(e)
+        }
+    }, [])
+    const handleFileUpload = () => {
+
+        console.log("test")
+    }
     return (
         <>
             <Box sx={{ width: '100%', background: 'white', textAlign: 'center', height: '100%', }}>
                 <Grid container>
                     <Grid item xs={6} sx={{ mt: 2 }}>
-                        <Button size="large" variant="outlined" onClick={handleUrlButtonClick} style={{ borderColor: "#E5E5E5", fontSize: "14px", color: "black" }}>URL 추가</Button>
+                        <StyledButton size="large" variant="outlined" onClick={handleUrlOpen}>
+                            URL 추가</StyledButton>
                     </Grid>
                     <Grid item xs={6} sx={{ mt: 2 }}>
-                        <Button size="large" variant="outlined" style={{ borderColor: "#E5E5E5", fontSize: "14px", color: "black" }}>이미지 추가</Button>
+                        <StyledButton size="large" variant="outlined" onClick={handleImageOpen}>
+                            이미지 추가
+                        </StyledButton>
                     </Grid>
                 </Grid>
             </Box>
-            {openInput && <InputResourceUrl handleInputClose={handleInputClose} />}
+            {openUrlInput && <InputResourceUrl handleInputClose={handleUrlClose} />}
+            {openImageInput && <InputResourceImage handleInputClose={handleImageClose} />}
         </>
     )
 

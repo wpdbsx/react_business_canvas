@@ -41,15 +41,7 @@ const ResourceItem: React.FC<ResourceItemType> = ({ content, viewName, postId })
         //입력 필드가 포커스를 잃을 때 (blur) 입력 필드의 유효성 체크
     });
 
-    useEffect(() => {
-        try {
-            if (editMode === true) {
-                setCursorAtEnd();
-            }
-        } catch (e) {
-            console.log(e)
-        }
-    }, [editMode])
+
 
     const setCursorAtEnd = useCallback(() => {
         try {
@@ -64,6 +56,7 @@ const ResourceItem: React.FC<ResourceItemType> = ({ content, viewName, postId })
     const handleEdit = useCallback(async () => {
         try {
             setEditMode(true);
+            setCursorAtEnd();
         } catch (e) {
             console.log(e)
         }
@@ -87,7 +80,6 @@ const ResourceItem: React.FC<ResourceItemType> = ({ content, viewName, postId })
             if (newContent !== undefined) {
                 // 값이 변경되었다면  
                 dispatch({ type: PATCH_POST, data: newContent, postId });
-
             }
             setEditMode(false);
             //에디터 모드 종료
@@ -95,7 +87,7 @@ const ResourceItem: React.FC<ResourceItemType> = ({ content, viewName, postId })
             console.log(e)
         }
     }, [])
-    const handleFocus = useCallback((e: any) => {
+    const handleClick = useCallback((e: any) => {
         try {
             if (!editMode && content !== selectedPost?.content) {
                 dispatch({ type: SELECT_POST, post: { content, postId, viewName, status: "url" } });
@@ -110,11 +102,8 @@ const ResourceItem: React.FC<ResourceItemType> = ({ content, viewName, postId })
             width: "95%",
             backgroundColor: 'white',
             borderRadius: "10px",
-
         }}
         id="12345"
-
-
     >
         <Grid container style={{ flexDirection: "row-reverse" }} >
             <Grid item xs={12} >
@@ -131,15 +120,14 @@ const ResourceItem: React.FC<ResourceItemType> = ({ content, viewName, postId })
                                     fullWidth
                                     maxRows={2}
                                     onBlur={handleBlur}
-                                    onFocus={handleFocus}
+                                    // onFocus={handleFocus}
+                                    onClick={handleClick}
                                     defaultValue={viewName}
                                     inputProps={
                                         {
                                             readOnly: !editMode,
-
                                         }
                                     }
-
                                 />
                             </>
                         }

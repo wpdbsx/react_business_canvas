@@ -4,12 +4,15 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import styled from "styled-components";
 import { Paper, TextField } from "@mui/material";
 import { useDispatch } from 'react-redux';
-import { ADD_POST_REQUEST } from "../../reducers/resource";
-import { resourceFormValidation } from "./yup";
+import { ADD_URL_REQUEST } from "../../reducers/resource";
+import { resourceUrlValidation } from "./yup";
 
 
 interface FormValue {
     content?: string;
+}
+interface AddResourceFormType {
+    handleInputClose: () => void
 }
 export const ErrorMessageWrapper = styled(Paper)`
   font-size: 14px;
@@ -20,7 +23,6 @@ export const ErrorMessageWrapper = styled(Paper)`
   left: 50%;
   transform: translate(-50%,460%);
   font-weight: bold;
-  
 `;
 
 const StyledTextField = styled(TextField)`
@@ -31,9 +33,7 @@ position: absolute;
 align-items: center;
 `;
 
-interface AddResourceFormType {
-    handleInputClose: () => void
-}
+
 const AddResourceForm: React.FC<AddResourceFormType> = ({ handleInputClose }) => {
     const textFieldRef = useRef<HTMLTextAreaElement>(null);
     const dispatch = useDispatch();
@@ -45,7 +45,7 @@ const AddResourceForm: React.FC<AddResourceFormType> = ({ handleInputClose }) =>
         getValues,
         setValue
     } = useForm<FormValue>({
-        resolver: yupResolver(resourceFormValidation),
+        resolver: yupResolver(resourceUrlValidation),
         mode: "onChange",
         //onChange 될때마다 입력 필드의 유효성 체크
     });
@@ -94,7 +94,7 @@ const AddResourceForm: React.FC<AddResourceFormType> = ({ handleInputClose }) =>
                     newContent = convertToEmbedUrl(newContent)
                 }
 
-                dispatch({ type: ADD_POST_REQUEST, data: newContent, status: 'url' });
+                dispatch({ type: ADD_URL_REQUEST, data: newContent });
             }
             setValue('content', '');
             handleInputClose();
@@ -117,11 +117,11 @@ const AddResourceForm: React.FC<AddResourceFormType> = ({ handleInputClose }) =>
                 <Controller
                     name="content"
                     control={control}
-                    render={({ field }) => {
+                    render={({ field, fieldState }) => {
                         return <>
                             <StyledTextField
                                 {...field}
-                                id="abcde"
+
                                 inputRef={textFieldRef}
                                 multiline
                                 fullWidth
@@ -131,19 +131,20 @@ const AddResourceForm: React.FC<AddResourceFormType> = ({ handleInputClose }) =>
                                     style: {
                                         width: "99%",
                                         height: "5vh",
-
-                                        border: '1px solid #38A5E1',
+                                        border: fieldState.invalid ? '' : '1px solid #38A5E1',
                                         background: "#F7F7F7",
                                         margin: "2px"
                                     },
                                 }}
+                                helperText={fieldState.invalid ? fieldState.error?.message : ""}
+                                error={fieldState.invalid}
                             />
-                            {errors.content && <ErrorMessageWrapper><div style={{ color: "red" }}>{errors.content?.message}</div></ErrorMessageWrapper>}
                         </>
                     }
                     }
                 />
             </Paper>
+
         </div>
     )
 

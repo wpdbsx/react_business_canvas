@@ -55,16 +55,18 @@
 
 6. 리소스 url 추가 버튼 기능 개발
    ├─ 1.url 수정 기능 개발
-   ├─ 2-1. "Url 추가" 버튼 클릭시 reactDom.createPortal을 이용하여 상단에 입력 Form view
+   ├─ 2. "Url 추가" 버튼 클릭시 reactDom.createPortal을 이용하여 상단에 입력 Form view
    ├─ 문제 발생, 부모가 최상단이라 반응형으로 줄어들지 않음
-   ├─ 2-2. <div position="relative"> 태그 안에서 호출,
+   ├─ 3번으로 진행
+   ├─ 3. <div position="relative"> 태그 안에서 호출,
    ├─ url 추가 태그 반응형으로 정상 작동
-   ├─ 2-3 url https:// , http:// 포함되어야하는 validation 체크, yup을 통해서 개발
-   ├─ 2-4 URL 추가 버튼 click 후 focus 이벤트 추가
-   ├─ 2-5 URL 추가 버튼 blur 후 창 닫는 이벤트 추가
-   ├─ 2-6 youtube url은 embed url 정규식검사 로직 개발
-   ├─ 2-7 삭제 기능 개발 및 mouser over 기능 추가
-   ├─ 2.8 toast 성공 ,실패 메세지 기능 개발
+   ├─ 4. url https:// , http:// 포함되어야하는 validation 체크, yup을 통해서 개발
+   ├─ 5. URL 추가 버튼 click 후 focus 이벤트 추가
+   ├─ 6. URL 추가 버튼 blur 후 창 닫는 이벤트 추가
+   ├─ 7. youtube url은 embed url 정규식검사 로직 개발
+   ├─ 8. 삭제 기능 개발 및 mouser over 기능 추가
+   ├─ 9. toast 성공 ,실패 메세지 기능 개발
+   ├─ 10. url 추가 시 로딩바 개발
 
 7. iFrame 기능 개발
    ├─ 1.ResourceList Item 수정 버튼 클릭시 focus 처리
@@ -78,6 +80,10 @@
    ├─1. 이미지 업로드를 위해 Firebase Stroage 설정
    ├─2. npm i firebase
    ├─3. npm i --save @types/uuid (파일명을 고유하게 작성하기 위해서 설치)
+   ├─4. npm install mui-file-input --save
+   ├─5. 이미지 파이어베이스 업로드 기능 구현
+   ├─6. 이미지 업로드 로딩 기능 구현
+   ├─7. 이미지 valid 기능 개발 구현
 9. 트러블 슈팅
    1. import { TypedIcon } from "typed-design-system" 사용시 에러 발생
       Module not found: Error: Can't resolve '@emotion/core' in 'E:\react_practice\react_business_canvas\node_modules\typed-design-system\dist'  
