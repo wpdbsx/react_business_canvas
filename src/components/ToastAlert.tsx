@@ -43,4 +43,4 @@ const ToastAlert: React.FC<AlertType> = ({ text, bgColor = 'white', textColor = 
 
 
 
-export default ToastAlert
+export default React.memo(ToastAlert)

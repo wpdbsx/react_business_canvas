@@ -1,13 +1,13 @@
-import { useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import InputResourceUrl from "./InputResourceUrl";
 import InputResourceImage from "./InputResourceImage";
 import { StyledButton } from "../styles/styles";
 
 
-const ResuorceButtonForm = () => {
-    const [openUrlInput, setOpenUrlInput] = useState(false);
+const ResuorceButtonForm: React.FC = () => {
+    const [openUrlInput, setOpenUrlInput] = useState<Boolean>(false);
 
-    const [openImageInput, setOpenImageInput] = useState(false);
+    const [openImageInput, setOpenImageInput] = useState<Boolean>(false);
 
     const handleUrlOpen = useCallback((e: React.MouseEvent) => {
         try {
@@ -57,4 +57,4 @@ const ResuorceButtonForm = () => {
     )
 }
 
-export default ResuorceButtonForm;
+export default React.memo(ResuorceButtonForm);

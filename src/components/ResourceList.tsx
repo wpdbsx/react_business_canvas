@@ -1,9 +1,10 @@
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from "../reducers";
 import ResourceItem from "./ResourceItem";
 
 
-const ResourceList = () => {
+const ResourceList: React.FC = () => {
 
     const { mainPosts } = useSelector((state: RootState) => (state.resource));
 
@@ -16,4 +17,4 @@ const ResourceList = () => {
 }
 
 
-export default ResourceList;
+export default React.memo(ResourceList);

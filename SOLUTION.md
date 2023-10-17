@@ -154,8 +154,9 @@
 
 ### 트러블 슈팅
 
+```
 1.  import { TypedIcon } from "typed-design-system" 사용시 에러 발생
-    Module not found: Error: Can't resolve '@emotion/core' in 'E:\react_practice\react_business_canvas\node_modules\typed-design-system\dist'  
+    Module not found: Error: Can't resolve '@emotion/core' in 'E:\react_practice\react_business_canvas\node_modules\typed-design-system\dist'
     에러 발생
     npm i -save @emotion/core 실행
     아이콘 사용시 에러 발생
@@ -171,5 +172,6 @@
 3.  Uncaught Error: Minified React error #425; visit https://reactjs.org/docs/error-decoder.html?invariant=425 for the full message or use the non-minified dev environment for full errors and additional helpful warnings.
     https://www.robinwieruch.de/react-libraries/를 iFrame으로 열면 에러가 출력
     위의 주소의 자체 에러 SSR에서 서버와 클라이언트가 서로 다른 것을 렌더링할 때 발생하는 경고다 보통은 클라이언트 시간과 서버 시간이 달라서 생기는 에러
-4.  https://blog.typed.biz/content/images/2021/04/pasted-image-0-copy.png net::ERR_NAME_NOT_RESOLVED  
+4.  https://blog.typed.biz/content/images/2021/04/pasted-image-0-copy.png net::ERR_NAME_NOT_RESOLVED
     https://typed.do/blog-kr/how-to-make-good-usability-product/ 를 iFrame으로 열었을떄 사이트 내부 에러
+```

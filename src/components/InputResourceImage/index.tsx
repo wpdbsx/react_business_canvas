@@ -95,4 +95,4 @@ const InputResourceImage: React.FC<AddResourceFormType> = ({ handleInputClose })
     </>
 }
 
-export default InputResourceImage;
+export default React.memo(InputResourceImage);

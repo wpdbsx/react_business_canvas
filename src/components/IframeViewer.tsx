@@ -19,20 +19,18 @@ const IframeViewer: React.FC<{ selectedPost: PostType }> = ({ selectedPost }) =>
     useEffect(() => {
         try {
 
-
-
             const ElementId = selectedPost.status === 'url' ? "my-iframe" : 'my-image'
             setLoading(true); // iFrame 로딩 시작 
 
-            const iframe = document.getElementById(ElementId) as HTMLIFrameElement;
+            const viwer = document.getElementById(ElementId) as HTMLIFrameElement;
             const loadListener = () => {
                 setLoading(false);
             };
-            iframe?.addEventListener('load', loadListener);
+            viwer?.addEventListener('load', loadListener);
 
             return () => {
                 setLoading(false);
-                iframe?.removeEventListener('load', loadListener)
+                viwer?.removeEventListener('load', loadListener)
 
             }
 
@@ -56,7 +54,7 @@ const IframeViewer: React.FC<{ selectedPost: PostType }> = ({ selectedPost }) =>
             height: '50px', display: "flex", justifyContent: "space-between", background: "white",
             boxShadow: "0px 2px 5px 0px #0000001A"
         }}>
-            <StyledUrlDiv $height="16px" $width="539px" style={{ cursor: "pointer" }} >
+            <StyledUrlDiv $height="17px" $width="539px" style={{ cursor: "pointer" }} >
                 <a style={{ textDecoration: "none", color: "black" }} href={selectedPost.content} target="_blank" rel="noopener noreferrer">{selectedPost.content}</a></StyledUrlDiv>
             <StyledCloseDiv onClick={handleClickClose}>
                 <TypedIcon icon="close_19" size={19} />

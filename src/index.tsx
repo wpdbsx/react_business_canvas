@@ -5,10 +5,6 @@ import { PersistGate } from "redux-persist/integration/react";
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import configureStore from './store/configureStore';
-<link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-/>
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

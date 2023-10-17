@@ -5,8 +5,9 @@ import ResuorceButtonForm from "../components/ResuorceButtonForm";
 import ResourceList from "../components/ResourceList";
 import { RootState } from "../reducers";
 import ToastAlert from "../components/ToastAlert";
+import React from "react";
 
-const ResourceView = () => {
+const ResourceView: React.FC = () => {
 
     const { selectedPost, addUrlError, addUrlDone, addImageDone, addImageError, addImageLoading, addUrlLoading } = useSelector((state: RootState) => state.resource)
 
@@ -56,4 +57,4 @@ const ResourceView = () => {
     )
 }
 
-export default ResourceView;
+export default React.memo(ResourceView);
