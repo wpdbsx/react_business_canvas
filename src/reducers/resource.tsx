@@ -10,7 +10,7 @@ type InitialStateType = {
   addUrlDone: boolean,
   addUrlError: string | null,
   addImageLoading: boolean,
-  addImageDone: boolean,
+  addImageDone: string | null,
   addImageError: string | null,
 };
 
@@ -21,7 +21,8 @@ type ActionType = {
   postId?: number;
   status?: "url" | "image"
   post?: PostType;
-  error: string | null
+  errorMessage: string | null
+  successMessage: string | null
 }
 
 export type PostState = ReturnType<typeof reducer>;
@@ -48,7 +49,7 @@ const initialState: InitialStateType = {
   addUrlDone: false,
   addUrlError: null,
   addImageLoading: false,
-  addImageDone: false,
+  addImageDone: null,
   addImageError: null,
 };
 
@@ -56,6 +57,7 @@ const initialState: InitialStateType = {
 export const ADD_IMAGE_REQUEST = "ADD_IMAGE_REQUEST";
 export const ADD_IMAGE_SUCCESS = "ADD_IMAGE_SUCCESS";
 export const ADD_IMAGE_FAILURE = "ADD_IMAGE_FAILURE";
+export const ADD_IMAGE_LODING_FALSE = "ADD_IMAGE_LODING_FALSE";
 
 export const ADD_URL_REQUEST = "ADD_URL_REQUEST";
 export const ADD_URL_SUCCESS = "ADD_URL_SUCCESS";
@@ -76,12 +78,11 @@ const reducer = (state = initialState, action: ActionType) => {
     switch (action.type) {
       case ADD_IMAGE_REQUEST:
         draft.addImageLoading = true;
-        draft.addImageDone = false;
+        draft.addImageDone = null;
         draft.addImageError = null;
         break;
       case ADD_IMAGE_SUCCESS:
-        draft.addImageLoading = false;
-        draft.addImageDone = true;
+        draft.addImageDone = action.successMessage;
         draft.addImageError = null;
         newPostId = draft.mainPosts.length;
         draft.mainPosts = [{
@@ -92,9 +93,11 @@ const reducer = (state = initialState, action: ActionType) => {
         }, ...draft.mainPosts]
         break;
       case ADD_IMAGE_FAILURE:
+        draft.addImageDone = null;
+        draft.addImageError = action.errorMessage;
+        break;
+      case ADD_IMAGE_LODING_FALSE:
         draft.addImageLoading = false;
-        draft.addImageDone = false;
-        draft.addImageError = action.error;
         break;
 
       case ADD_URL_REQUEST:
@@ -117,7 +120,7 @@ const reducer = (state = initialState, action: ActionType) => {
       case ADD_URL_FAILURE:
         draft.addUrlLoading = false;
         draft.addUrlDone = false;
-        draft.addUrlError = action.error;
+        draft.addUrlError = action.errorMessage;
         break;
 
 
@@ -144,7 +147,7 @@ const reducer = (state = initialState, action: ActionType) => {
         draft.addUrlDone = false
         break;
       case RESET_IMAGE_STATUS:
-        draft.addImageDone = false
+        draft.addImageDone = null
         draft.addImageError = null
         break;
 

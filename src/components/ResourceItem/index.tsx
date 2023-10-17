@@ -34,6 +34,7 @@ const StyledTextField = styled.textarea`
     padding:12px;
     resize: none;
     outline-color: #38A5E1;
+    
 `
 const ResourceItem: React.FC<{ post: PostType }> = ({ post }) => {
 
@@ -152,7 +153,7 @@ const ResourceItem: React.FC<{ post: PostType }> = ({ post }) => {
 
         </>
             :
-            <StyledDiv $height="32px" $width="236px" onClick={handleClick} >
+            <StyledDiv $height="32px" $width="236px" onClick={handleClick} style={{ cursor: "pointer" }} >
                 {post.viewName}
             </StyledDiv>
         }

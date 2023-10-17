@@ -6,7 +6,7 @@ import {
     put,
     takeEvery
 } from "redux-saga/effects";
-import { ADD_URL_FAILURE, ADD_URL_SUCCESS, ADD_URL_REQUEST, ADD_IMAGE_REQUEST, RESET_URL_STATUS, ADD_IMAGE_FAILURE, ADD_IMAGE_SUCCESS, RESET_IMAGE_STATUS } from "../reducers/resource";
+import { ADD_URL_FAILURE, ADD_URL_SUCCESS, ADD_URL_REQUEST, ADD_IMAGE_REQUEST, RESET_URL_STATUS, ADD_IMAGE_FAILURE, ADD_IMAGE_SUCCESS, RESET_IMAGE_STATUS, ADD_IMAGE_LODING_FALSE } from "../reducers/resource";
 import upload from "../apis/upload";
 
 
@@ -29,7 +29,7 @@ function* addURL(action: { type: string, data: string, status: 'url' | 'image' }
         if (randomPercent <= 80) {
             yield put({ type: ADD_URL_SUCCESS, data: action.data });
         } else {
-            yield put({ type: ADD_URL_FAILURE, error: "실패하셨습니다!" });
+            yield put({ type: ADD_URL_FAILURE, errorMessage: "실패하셨습니다!" });
         }
         yield delay(2000);   // 토스트 팝업 설정 시간
         yield put({ type: RESET_URL_STATUS });
@@ -39,21 +39,29 @@ function* addURL(action: { type: string, data: string, status: 'url' | 'image' }
     }
 }
 
-function* addImage(action: { type: string, data: File, status: 'url' | 'image' }) {
+function* addImage(action: { type: string, data: File[], status: 'url' | 'image' }) {
     try {
 
-        const { randomValue, randomPercent } = delayFunction();
 
-        yield delay(randomValue);
-        if (randomPercent <= 80) {
-            const result: string = yield call(upload, action.data)
-            yield put({ type: ADD_IMAGE_SUCCESS, data: result, viewName: action.data.name });
+        const imageList = action.data
+        let count = 1;
+        for (const image of imageList) {
 
-        } else {
-            yield put({ type: ADD_IMAGE_FAILURE, error: "실패하셨습니다!" });
+            const { randomValue, randomPercent } = delayFunction();
+            console.log(image)
+            yield delay(randomValue); // 랜덤 딜레이
+            if (randomPercent <= 80) {
+                const result: string = yield call(upload, image) // 하나의파일 업로드
+                yield put({ type: ADD_IMAGE_SUCCESS, data: result, viewName: image.name, successMessage: `${count++}번 파일 성공!` });
+            } else {
+                yield put({ type: ADD_IMAGE_FAILURE, errorMessage: `${count++}번 파일 실패!` });
+            }
+
+            yield delay(500);   // 토스트 팝업 설정 시간
+            yield put({ type: RESET_IMAGE_STATUS });
         }
-        yield delay(2000);   // 토스트 팝업 설정 시간
-        yield put({ type: RESET_IMAGE_STATUS });
+        yield put({ type: ADD_IMAGE_LODING_FALSE, error: "실패하셨습니다!" });
+
 
     } catch (err) {
         console.log(err)

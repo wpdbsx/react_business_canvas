@@ -8,7 +8,7 @@ import ToastAlert from "../components/ToastAlert";
 
 const ResourceView = () => {
 
-    const { selectedPost, addUrlError, addUrlDone, addImageDone, addImageError } = useSelector((state: RootState) => state.resource)
+    const { selectedPost, addUrlError, addUrlDone, addImageDone, addImageError, addImageLoading, addUrlLoading } = useSelector((state: RootState) => state.resource)
 
     return (
         <div style={{
@@ -49,9 +49,9 @@ const ResourceView = () => {
             >
                 {selectedPost?.content && <IframeViewer selectedPost={selectedPost} />}
             </div>
-            {(addUrlDone || addImageDone) && <ToastAlert text="성공하셨습니다." bgColor="#4D99DE" textColor="white" />}
+            {(addUrlDone || addImageDone) && <ToastAlert text={(addImageDone || "성공하셨습니다.")} bgColor="#4D99DE" textColor="white" />}
             {(addUrlError || addImageError) && <ToastAlert text={(addUrlError || addImageError)} bgColor="#EA4343" textColor="white" />}
-            {(addUrlError || addImageError) && <CircularProgress sx={{ position: "absolute", top: "40%", left: "50%" }} />}
+            {(addUrlLoading || addImageLoading) && <CircularProgress sx={{ position: "absolute", top: "40%", left: "50%" }} />}
         </div >
     )
 }

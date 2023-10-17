@@ -34,10 +34,9 @@ const InputResourceImage: React.FC<AddResourceFormType> = ({ handleInputClose })
         if (data.images.length === 0) {
             setError("images", { message: "파일을 등록해주세요." })
         } else {
-            data.images.map((image) => {
-                dispatch({ type: ADD_IMAGE_REQUEST, data: image, status: 'image' })
-                // 이미지 파일 1개의 업로드를 하나의 API 호출로 보고 반복문으로 작성
-            })
+
+            dispatch({ type: ADD_IMAGE_REQUEST, data: data.images, status: 'image' })
+
             handleInputClose();
         }
     };

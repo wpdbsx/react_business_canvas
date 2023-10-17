@@ -4,13 +4,13 @@
 
 ### 폴더구조
 
-0. 폴더 구조
+```폴더 구조
    📦src
    ┣ 📂apis
    ┃ ┣ 📜firebase.tsx Firebase 설정파일
    ┃ ┗ 📜upload.tsx Firebase 이미지 업로드 파일
    ┣ 📂assets
-   ┃ ┗ 📂images  
+   ┃ ┗ 📂images
    ┣ 📂components
    ┃ ┣ 📂InputResourceImage 이미지입력창
    ┃ ┃ ┗ 📜index.tsx
@@ -46,10 +46,11 @@
    ┣ 📜react-app-env.d.ts
    ┣ 📜reportWebVitals.tsx
    ┗ 📜setupTests.tsx
+```
 
-### 진행과정
+#### 진행과정
 
-## 프로젝트에 앞선 고민
+### 프로젝트에 앞선 고민
 
 # Git
 
@@ -72,7 +73,7 @@
    2. [ResourceList.tsx (URL 이름수정, URL삭제, URL 목록 출력)] (왼쪽 하단),
    3. [IframeUrlViewer (URL클릭시 동영상 뷰어) , ImageViewer (Image 클릭시 이미지 뷰어)] (오른쪽)
 
-## 과제 개발에 필요한 라이브러리 설치
+### 과제 개발에 필요한 라이브러리 설치
 
 # react-hook-form
 
@@ -97,7 +98,7 @@
    3. 백엔드를 타지않기 때문에 새로고침해도 값을 유지하는게 좋을것같아서 persist를 설치했습니다.
       npm install redux-persist -D // 새로고침 해도 store 데이터 남아있게 처리하는 라이브러리
 
-## 개발
+### 개발
 
 # [ResuorceButtonForm.tsx (URL추가 / 이미지추가)] (왼쪽 상단) 개발
 
@@ -151,23 +152,24 @@
    - 다중업로드는 이미지 리스트를 한번에 redux-saga로 전송
      [이미지 업로드 -> 로딩 -> 성공/실패 여부 토스트출력] 루틴으로 마지막에 성공, 처리 건수를 토스트팝업으로 출력
 
-2. 트러블 슈팅
-   1. import { TypedIcon } from "typed-design-system" 사용시 에러 발생
-      Module not found: Error: Can't resolve '@emotion/core' in 'E:\react_practice\react_business_canvas\node_modules\typed-design-system\dist'  
-      에러 발생
-      npm i -save @emotion/core 실행
-      아이콘 사용시 에러 발생
-      The `@emotion/core` package has been renamed to `@emotion/react`. Please import it like this `import { jsx } from '@emotion/react'`.
-      npm install @emotion/core@10.1.1로 core 다운 그레이드 후 에러 해결
-   2. ResizeObserver loop completed with undelivered notifications.
-      ResourceItem 의 Controller에서 에러 발생, defaultValues에 값을 넣고 크기를 조정하면 에러발생
-      해결방안
-      App.css에 항목 추가
-      iframe#webpack-dev-server-client-overlay {
-      display: none !important;
-      }
-   3. Uncaught Error: Minified React error #425; visit https://reactjs.org/docs/error-decoder.html?invariant=425 for the full message or use the non-minified dev environment for full errors and additional helpful warnings.
-      https://www.robinwieruch.de/react-libraries/를 iFrame으로 열면 에러가 출력
-      위의 주소의 자체 에러 SSR에서 서버와 클라이언트가 서로 다른 것을 렌더링할 때 발생하는 경고다 보통은 클라이언트 시간과 서버 시간이 달라서 생기는 에러
-   4. https://blog.typed.biz/content/images/2021/04/pasted-image-0-copy.png net::ERR_NAME_NOT_RESOLVED  
-      https://typed.do/blog-kr/how-to-make-good-usability-product/ 를 iFrame으로 열었을떄 사이트 내부 에러
+### 트러블 슈팅
+
+1.  import { TypedIcon } from "typed-design-system" 사용시 에러 발생
+    Module not found: Error: Can't resolve '@emotion/core' in 'E:\react_practice\react_business_canvas\node_modules\typed-design-system\dist'  
+    에러 발생
+    npm i -save @emotion/core 실행
+    아이콘 사용시 에러 발생
+    The `@emotion/core` package has been renamed to `@emotion/react`. Please import it like this `import { jsx } from '@emotion/react'`.
+    npm install @emotion/core@10.1.1로 core 다운 그레이드 후 에러 해결
+2.  ResizeObserver loop completed with undelivered notifications.
+    ResourceItem 의 Controller에서 에러 발생, defaultValues에 값을 넣고 크기를 조정하면 에러발생
+    해결방안
+    App.css에 항목 추가
+    iframe#webpack-dev-server-client-overlay {
+    display: none !important;
+    }
+3.  Uncaught Error: Minified React error #425; visit https://reactjs.org/docs/error-decoder.html?invariant=425 for the full message or use the non-minified dev environment for full errors and additional helpful warnings.
+    https://www.robinwieruch.de/react-libraries/를 iFrame으로 열면 에러가 출력
+    위의 주소의 자체 에러 SSR에서 서버와 클라이언트가 서로 다른 것을 렌더링할 때 발생하는 경고다 보통은 클라이언트 시간과 서버 시간이 달라서 생기는 에러
+4.  https://blog.typed.biz/content/images/2021/04/pasted-image-0-copy.png net::ERR_NAME_NOT_RESOLVED  
+    https://typed.do/blog-kr/how-to-make-good-usability-product/ 를 iFrame으로 열었을떄 사이트 내부 에러

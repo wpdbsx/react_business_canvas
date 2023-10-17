@@ -12,6 +12,7 @@ const ResuorceButtonForm = () => {
     const handleUrlOpen = useCallback((e: React.MouseEvent) => {
         try {
             setOpenUrlInput(true);
+            handleImageClose();
         } catch (e) {
             console.log(e)
         }
