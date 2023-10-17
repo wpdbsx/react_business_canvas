@@ -4,7 +4,14 @@ import "./App.css"
 const App: React.FC = () => {
 
   return (
-    <ResourceView />
+    <div style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      background: "black"
+    }}>
+      <ResourceView />
+    </div >
   );
 }
 

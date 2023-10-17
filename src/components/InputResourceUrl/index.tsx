@@ -6,33 +6,15 @@ import { Paper, TextField } from "@mui/material";
 import { useDispatch } from 'react-redux';
 import { ADD_URL_REQUEST } from "../../reducers/resource";
 import { resourceUrlValidation } from "./yup";
+import { ErrorMessageWrapper, StyledTextField } from "../../styles/styles";
 
 
 interface FormValue {
-    content?: string;
+    content: string;
 }
 interface AddResourceFormType {
     handleInputClose: () => void
 }
-export const ErrorMessageWrapper = styled(Paper)`
-  font-size: 14px;
-  color: red;
-  background-color: white;
-  position: absolute;
-  top:10%;
-  left: 50%;
-  transform: translate(-50%,460%);
-  font-weight: bold;
-`;
-
-const StyledTextField = styled(TextField)`
-
-box-shadow: 5px 5px 10px 0px gray;
-width: 88%;
-position: absolute;
-align-items: center;
-`;
-
 
 const AddResourceForm: React.FC<AddResourceFormType> = ({ handleInputClose }) => {
     const textFieldRef = useRef<HTMLTextAreaElement>(null);
@@ -47,6 +29,9 @@ const AddResourceForm: React.FC<AddResourceFormType> = ({ handleInputClose }) =>
     } = useForm<FormValue>({
         resolver: yupResolver(resourceUrlValidation),
         mode: "onChange",
+        defaultValues: {
+            content: ""
+        }
         //onChange 될때마다 입력 필드의 유효성 체크
     });
 
@@ -54,7 +39,7 @@ const AddResourceForm: React.FC<AddResourceFormType> = ({ handleInputClose }) =>
         textFieldRef?.current?.focus();
     }, [])
 
-    const convertToEmbedUrl = useCallback((url: string) => {
+    const convertToEmbedUrl = useCallback((url: string): string | undefined => {
         try {
             // 정규식을 사용하여 YouTube 비디오 ID를 추출
             const regex = /(?:https:\/\/(?:www\.youtube\.com\/(?:watch\?v=|embed\/|v\/)|youtu\.be\/)([a-zA-Z0-9_-]{11}))/;
@@ -65,8 +50,9 @@ const AddResourceForm: React.FC<AddResourceFormType> = ({ handleInputClose }) =>
             // https://www.youtube.com/v/
             // https://www.youtu.be/
             // 위의 내용을 추출하지 않고 youtube 동영상 ID인 [a-zA-Z0-9_-]{11} 를 추출
-            const match = url.match(regex);
+            const match = url.match(regex) || "";
 
+            // match[1] 은 추출한 결과물이 들어잇다.
             if (match && match[1]) {
                 // 비디오 ID를 추출했다면 'https://www.youtube.com/embed/VIDEO_ID' 형태로 반환
                 const videoId = match[1];
@@ -77,6 +63,7 @@ const AddResourceForm: React.FC<AddResourceFormType> = ({ handleInputClose }) =>
             return url;
         } catch (e) {
             console.log(e)
+
         }
     }, [])
 
@@ -84,14 +71,15 @@ const AddResourceForm: React.FC<AddResourceFormType> = ({ handleInputClose }) =>
         try {
             let newContent = getValues("content");
 
-            if (newContent !== undefined && !errors.content) {
+            if (newContent?.length > 0 && !errors.content) {
                 // 값이 변경되었고, 에러메세지가 없다면
                 const youtubeUrlPattern = /(?:https:\/\/www\.youtube\.com\/watch\?v=|https:\/\/youtu\.be\/)([a-zA-Z0-9_-]{11})/;
                 // https://www.youtube.com/watch?v 로 시작하거나
                 // https://youtu.be로 시작하는지 정규식 검사
                 if (youtubeUrlPattern.test(newContent)) {
                     //유튜브URL 이므로 url 변경
-                    newContent = convertToEmbedUrl(newContent)
+                    newContent = convertToEmbedUrl(newContent) as string
+                    //catch문 떄문에 undefined가 나와서 string으로 확정 시켰습니다.
                 }
 
                 dispatch({ type: ADD_URL_REQUEST, data: newContent });
@@ -110,8 +98,9 @@ const AddResourceForm: React.FC<AddResourceFormType> = ({ handleInputClose }) =>
                 position: "absolute",
                 top: "50%",
                 left: "50%",
-                transform: "translate(-50%, -5%)",
-                width: "80%"
+                transform: "translate(-50%,115%)",
+                width: "260px",
+                height: "40px"
 
             }}>
                 <Controller
@@ -121,28 +110,14 @@ const AddResourceForm: React.FC<AddResourceFormType> = ({ handleInputClose }) =>
                         return <>
                             <StyledTextField
                                 {...field}
-
-                                inputRef={textFieldRef}
-                                multiline
-                                fullWidth
-                                maxRows={2}
+                                ref={textFieldRef}
                                 onBlur={handleBlur}
-                                InputProps={{
-                                    style: {
-                                        width: "99%",
-                                        height: "5vh",
-                                        border: fieldState.invalid ? '' : '1px solid #38A5E1',
-                                        background: "#F7F7F7",
-                                        margin: "2px"
-                                    },
-                                }}
-                                helperText={fieldState.invalid ? fieldState.error?.message : ""}
-                                error={fieldState.invalid}
                             />
                         </>
                     }
                     }
                 />
+                {errors.content && <ErrorMessageWrapper><div style={{ color: "red" }}>{errors.content?.message}</div></ErrorMessageWrapper>}
             </Paper>
 
         </div>

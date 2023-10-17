@@ -1,14 +1,9 @@
 
 import { produce } from "immer";
+import { PostType } from "../types/types";
 // import { faker } from "@faker-js/faker";
 
-export type PostType = {
-  content: string,
-  viewName: string,
-  postId: number,
-  status?: "url" | "image"
 
-}
 type InitialStateType = {
   mainPosts: PostType[];
   selectedPost: PostType | null;

@@ -9,23 +9,33 @@ import { Controller } from 'react-hook-form';
 import { PATCH_POST, REMOVE_POST, SELECT_POST } from "../../reducers/resource";
 import styled from "styled-components";
 import { RootState } from "../../reducers";
-interface ResourceItemType {
-    content: string;
-    viewName: string;
-    postId: number;
-}
+import { StyledDiv } from "../../styles/styles";
+import { PostType } from "../../types/types";
+
 interface FormValue {
     viewName: string;
 }
 const StyledMouseOverDiv = styled.div`
-padding-bottom: 15px;
+  float:right;
+  margin-top:3px;
    &:hover {
         background-color: lightblue;
         color: darkblue;
     }
 `
 
-const ResourceItem: React.FC<ResourceItemType> = ({ content, viewName, postId }) => {
+const StyledTextField = styled.textarea`
+    width:236px;
+    height:32px;
+    font-family: Roboto;
+    font-weight: 400;
+    font-size:14px;
+    line-height: 16.41px;
+    padding:12px;
+    resize: none;
+    outline-color: #38A5E1;
+`
+const ResourceItem: React.FC<{ post: PostType }> = ({ post }) => {
 
     const dispatch = useDispatch();
     const [editMode, setEditMode] = useState(false);
@@ -38,22 +48,32 @@ const ResourceItem: React.FC<ResourceItemType> = ({ content, viewName, postId })
     } = useForm<FormValue>({
         resolver: yupResolver(resourceFormValidation),
         mode: "onBlur",
+        defaultValues: {
+            viewName: post.viewName
+        }
         //입력 필드가 포커스를 잃을 때 (blur) 입력 필드의 유효성 체크
     });
 
+    useEffect(() => {
+        if (editMode) {
+            setCursorAtEnd();
 
+        }
+    }, [editMode]);
 
     const setCursorAtEnd = useCallback(() => {
         try {
-            const viewNameSize = viewName.length
+            const viewNameSize = post.viewName.length
+
             textFieldRef?.current?.focus();
             textFieldRef?.current?.setSelectionRange(viewNameSize, viewNameSize)
+
         } catch (e) {
             console.log(e)
         }
     }, [])
 
-    const handleEdit = useCallback(async () => {
+    const handleEdit = useCallback(() => {
         try {
             setEditMode(true);
             setCursorAtEnd();
@@ -66,7 +86,7 @@ const ResourceItem: React.FC<ResourceItemType> = ({ content, viewName, postId })
         try {
             dispatch({
                 type: REMOVE_POST,
-                postId: postId
+                postId: post.postId
             })
         } catch (e) {
             console.log(e)
@@ -75,11 +95,12 @@ const ResourceItem: React.FC<ResourceItemType> = ({ content, viewName, postId })
 
     const handleBlur = useCallback((e: any) => {
         try {
+
             const newContent = getValues("viewName");
 
             if (newContent !== undefined) {
                 // 값이 변경되었다면  
-                dispatch({ type: PATCH_POST, data: newContent, postId });
+                dispatch({ type: PATCH_POST, data: newContent, postId: post.postId });
             }
             setEditMode(false);
             //에디터 모드 종료
@@ -87,67 +108,63 @@ const ResourceItem: React.FC<ResourceItemType> = ({ content, viewName, postId })
             console.log(e)
         }
     }, [])
-    const handleClick = useCallback((e: any) => {
+    const handleClick = useCallback(() => {
         try {
-            if (!editMode && content !== selectedPost?.content) {
-                dispatch({ type: SELECT_POST, post: { content, postId, viewName, status: "url" } });
+            if (!editMode && post.content !== selectedPost?.content) {
+                dispatch({ type: SELECT_POST, post: post });
             }
         } catch (e) {
             console.log(e)
         }
     }, [editMode, selectedPost])
+
     return <Box
         sx={{
-            mt: 2,
-            width: "95%",
+            width: "260px",
+            height: "90px",
             backgroundColor: 'white',
             borderRadius: "10px",
-        }}
-        id="12345"
-    >
-        <Grid container style={{ flexDirection: "row-reverse" }} >
-            <Grid item xs={12} >
-                <Paper sx={{ m: 2 }}  >
-                    <Controller
-                        name="viewName"
-                        control={control}
-                        render={({ field }) => {
-                            return <>
-                                <TextField
-                                    {...field}
-                                    inputRef={textFieldRef}
-                                    multiline
-                                    fullWidth
-                                    maxRows={2}
-                                    onBlur={handleBlur}
-                                    // onFocus={handleFocus}
-                                    onClick={handleClick}
-                                    defaultValue={viewName}
-                                    inputProps={
-                                        {
-                                            readOnly: !editMode,
-                                        }
-                                    }
-                                />
-                            </>
-                        }
-                        }
-                    />
+            margin: "0px 10px 10px 10px",
 
-                </Paper>
-            </Grid>
-            <Grid item xs={2} >
-                <StyledMouseOverDiv onClick={handleRemove} >
-                    <TypedIcon icon="trash_19" size={24} />
-                </StyledMouseOverDiv>
-            </Grid>
-            <Grid item xs={2} >
-                <StyledMouseOverDiv onClick={handleEdit}>
-                    <TypedIcon icon="edit_19" size={24} />
-                </StyledMouseOverDiv>
-            </Grid>
-        </Grid>
-    </Box>
+        }}
+    >
+        {editMode ? <>
+            <Controller
+                name="viewName"
+                control={control}
+                render={({ field }) => {
+                    return <>
+                        <StyledTextField
+                            {...field}
+
+                            ref={textFieldRef}
+                            onBlur={handleBlur}
+                            // onFocus={handleFocus}
+                            onClick={handleClick}
+
+                        />
+
+                    </>
+                }
+                }
+            />
+
+        </>
+            :
+            <StyledDiv $height="32px" $width="236px" onClick={handleClick} >
+                {post.viewName}
+            </StyledDiv>
+        }
+
+        <StyledMouseOverDiv style={{ marginRight: "8px" }} onClick={handleRemove} >
+            <TypedIcon icon="trash_19" size={19} />
+        </StyledMouseOverDiv>
+        <StyledMouseOverDiv style={{ marginRight: "12px" }} onClick={handleEdit}>
+            <TypedIcon icon="edit_19" size={19} />
+        </StyledMouseOverDiv>
+
+
+    </Box >
 }
 
 export default React.memo(ResourceItem); 

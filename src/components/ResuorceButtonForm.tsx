@@ -46,18 +46,17 @@ const ResuorceButtonForm = () => {
     }
     return (
         <>
-            <Box sx={{ width: '100%', background: 'white', textAlign: 'center', height: '100%', }}>
-                <Grid container>
-                    <Grid item xs={6} sx={{ mt: 2 }}>
-                        <StyledButton size="large" variant="outlined" onClick={handleUrlOpen}>
-                            URL 추가</StyledButton>
-                    </Grid>
-                    <Grid item xs={6} sx={{ mt: 2 }}>
-                        <StyledButton size="large" variant="outlined" onClick={handleImageOpen}>
-                            이미지 추가
-                        </StyledButton>
-                    </Grid>
-                </Grid>
+            <Box sx={{ background: 'white' }}>
+
+                <div>
+                    <StyledButton $width={'125px'} $height={'30px'} sx={{ float: "left", margin: "10px" }} onClick={handleUrlOpen}>
+                        URL 추가
+                    </StyledButton>
+                    <StyledButton $width={'125px'} $height={'30px'} sx={{ float: "right", margin: "10px 10px 10px 0" }} onClick={handleImageOpen}>
+                        이미지 추가
+                    </StyledButton>
+                </div>
+
             </Box>
             {openUrlInput && <InputResourceUrl handleInputClose={handleUrlClose} />}
             {openImageInput && <InputResourceImage handleInputClose={handleImageClose} />}

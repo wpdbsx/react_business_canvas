@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 
 type AlertType = {
-    text: string
+    text: string | null
     bgColor?: string
     textColor?: string
 }
@@ -13,14 +13,13 @@ type AlertTextDivProps = {
 
 const StyleAlertCoverDiv = styled.div`
 position: absolute;
-width: 25%;
-bottom: 0px;
+width: 280px;
+height:50px;
+top: 750px;
 z-index: 2;
 align-items: center;
 padding: 0 auto;
-@media (max-width:1199px){
-    width: 100%;
-}
+
 /* position: absolute */
 `
 const StyleAlertTextDiv = styled.div<AlertTextDivProps>`

@@ -44,6 +44,7 @@ const InputResourceImage: React.FC<AddResourceFormType> = ({ handleInputClose })
                 dispatch({ type: ADD_IMAGE_REQUEST, data: image, status: 'image' })
                 // 이미지 파일 1개의 업로드를 하나의 API 호출로 보고 반복문으로 작성
             })
+            handleInputClose();
         }
     };
 
@@ -53,8 +54,8 @@ const InputResourceImage: React.FC<AddResourceFormType> = ({ handleInputClose })
                 position: "absolute",
                 top: "50%",
                 left: "50%",
-                transform: "translate(-50%, -5%)",
-                width: "80%"
+                transform: "translate(-50%, 60%)",
+                width: "265px",
 
             }}>
                 <form onSubmit={handleSubmit(onSubmitHandler)}>
@@ -62,7 +63,7 @@ const InputResourceImage: React.FC<AddResourceFormType> = ({ handleInputClose })
                         name="images"
                         control={control}
                         render={({ field, fieldState }) => {
-                            console.log("fieldState ", fieldState)
+
                             return <>
                                 <MuiFileInput
                                     {...field}
@@ -78,22 +79,21 @@ const InputResourceImage: React.FC<AddResourceFormType> = ({ handleInputClose })
                                     }}
                                     InputProps={{
                                         style: {
-                                            width: "99%",
-                                            height: "5vh",
+                                            fontSize: "10px",
+                                            height: "50px",
                                             border: fieldState.invalid ? "" : '1px solid #38A5E1',
                                             background: "#F7F7F7",
                                             margin: "2px",
-
                                         }
                                     }}
                                 />
                             </>
                         }} />
                     <div>
-                        <StyledButton onClick={handleInputClose} variant="outlined" sx={{ float: "right" }}>
+                        <StyledButton $width={'50px'} $height={'10px'} onClick={handleInputClose} variant="outlined" sx={{ float: "right" }}>
                             닫기
                         </StyledButton>
-                        <StyledButton type="submit" variant="outlined" sx={{ float: "right" }}>
+                        <StyledButton $width={'50px'} $height={'10px'} type="submit" variant="outlined" sx={{ float: "right" }}>
                             추가
                         </StyledButton>
 
@@ -101,23 +101,6 @@ const InputResourceImage: React.FC<AddResourceFormType> = ({ handleInputClose })
                 </form >
             </Paper >
         </div >
-
-        {/* <div>
-            <input
-                type="file"
-                onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                    if (event.target.files !== null) {
-                        firebaseImageUpload(event.target.files)
-
-                    }
-                    // 
-                }}
-            />
-            <button onClick={upload}>업로드</button>
-            {imageList.map((el) => {
-                return <img key={el} src={el} />;
-            })}
-        </div> */}
     </>
 }
 
